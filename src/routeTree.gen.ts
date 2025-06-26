@@ -9,22 +9,36 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as UsersRouteRouteImport } from './routes/users/route'
+import { Route as OrganiserRouteRouteImport } from './routes/organiser/route'
 import { Route as AdminRouteRouteImport } from './routes/admin/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as UsersIndexRouteImport } from './routes/users/index'
 import { Route as TicketsIndexRouteImport } from './routes/tickets/index'
 import { Route as RegisterIndexRouteImport } from './routes/register/index'
+import { Route as OrganiserIndexRouteImport } from './routes/organiser/index'
 import { Route as LoginIndexRouteImport } from './routes/login/index'
 import { Route as HowItWorksIndexRouteImport } from './routes/how-it-works/index'
 import { Route as EventsIndexRouteImport } from './routes/events/index'
 import { Route as CategoriesIndexRouteImport } from './routes/categories/index'
+import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as UsersUserIdRouteImport } from './routes/users/$userId'
 import { Route as AdminUsersRouteImport } from './routes/admin/users'
 import { Route as AdminTicketsRouteImport } from './routes/admin/tickets'
-import { Route as AdminSettingsRouteImport } from './routes/admin/settings'
+import { Route as AdminRegisteredEventsRouteImport } from './routes/admin/registeredEvents'
 import { Route as AdminEventsRouteImport } from './routes/admin/events'
 import { Route as AdminPaymentsIndexRouteImport } from './routes/admin/payments/index'
 
+const UsersRouteRoute = UsersRouteRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrganiserRouteRoute = OrganiserRouteRouteImport.update({
+  id: '/organiser',
+  path: '/organiser',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminRouteRoute = AdminRouteRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -36,9 +50,9 @@ const IndexRoute = IndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const UsersIndexRoute = UsersIndexRouteImport.update({
-  id: '/users/',
-  path: '/users/',
-  getParentRoute: () => rootRouteImport,
+  id: '/',
+  path: '/',
+  getParentRoute: () => UsersRouteRoute,
 } as any)
 const TicketsIndexRoute = TicketsIndexRouteImport.update({
   id: '/tickets/',
@@ -49,6 +63,11 @@ const RegisterIndexRoute = RegisterIndexRouteImport.update({
   id: '/register/',
   path: '/register/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const OrganiserIndexRoute = OrganiserIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => OrganiserRouteRoute,
 } as any)
 const LoginIndexRoute = LoginIndexRouteImport.update({
   id: '/login/',
@@ -70,10 +89,15 @@ const CategoriesIndexRoute = CategoriesIndexRouteImport.update({
   path: '/categories/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
 const UsersUserIdRoute = UsersUserIdRouteImport.update({
-  id: '/users/$userId',
-  path: '/users/$userId',
-  getParentRoute: () => rootRouteImport,
+  id: '/$userId',
+  path: '/$userId',
+  getParentRoute: () => UsersRouteRoute,
 } as any)
 const AdminUsersRoute = AdminUsersRouteImport.update({
   id: '/users',
@@ -85,9 +109,9 @@ const AdminTicketsRoute = AdminTicketsRouteImport.update({
   path: '/tickets',
   getParentRoute: () => AdminRouteRoute,
 } as any)
-const AdminSettingsRoute = AdminSettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
+const AdminRegisteredEventsRoute = AdminRegisteredEventsRouteImport.update({
+  id: '/registeredEvents',
+  path: '/registeredEvents',
   getParentRoute: () => AdminRouteRoute,
 } as any)
 const AdminEventsRoute = AdminEventsRouteImport.update({
@@ -104,32 +128,37 @@ const AdminPaymentsIndexRoute = AdminPaymentsIndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteRouteWithChildren
+  '/organiser': typeof OrganiserRouteRouteWithChildren
+  '/users': typeof UsersRouteRouteWithChildren
   '/admin/events': typeof AdminEventsRoute
-  '/admin/settings': typeof AdminSettingsRoute
+  '/admin/registeredEvents': typeof AdminRegisteredEventsRoute
   '/admin/tickets': typeof AdminTicketsRoute
   '/admin/users': typeof AdminUsersRoute
   '/users/$userId': typeof UsersUserIdRoute
+  '/admin/': typeof AdminIndexRoute
   '/categories': typeof CategoriesIndexRoute
   '/events': typeof EventsIndexRoute
   '/how-it-works': typeof HowItWorksIndexRoute
   '/login': typeof LoginIndexRoute
+  '/organiser/': typeof OrganiserIndexRoute
   '/register': typeof RegisterIndexRoute
   '/tickets': typeof TicketsIndexRoute
-  '/users': typeof UsersIndexRoute
+  '/users/': typeof UsersIndexRoute
   '/admin/payments': typeof AdminPaymentsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRouteRouteWithChildren
   '/admin/events': typeof AdminEventsRoute
-  '/admin/settings': typeof AdminSettingsRoute
+  '/admin/registeredEvents': typeof AdminRegisteredEventsRoute
   '/admin/tickets': typeof AdminTicketsRoute
   '/admin/users': typeof AdminUsersRoute
   '/users/$userId': typeof UsersUserIdRoute
+  '/admin': typeof AdminIndexRoute
   '/categories': typeof CategoriesIndexRoute
   '/events': typeof EventsIndexRoute
   '/how-it-works': typeof HowItWorksIndexRoute
   '/login': typeof LoginIndexRoute
+  '/organiser': typeof OrganiserIndexRoute
   '/register': typeof RegisterIndexRoute
   '/tickets': typeof TicketsIndexRoute
   '/users': typeof UsersIndexRoute
@@ -139,15 +168,19 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteRouteWithChildren
+  '/organiser': typeof OrganiserRouteRouteWithChildren
+  '/users': typeof UsersRouteRouteWithChildren
   '/admin/events': typeof AdminEventsRoute
-  '/admin/settings': typeof AdminSettingsRoute
+  '/admin/registeredEvents': typeof AdminRegisteredEventsRoute
   '/admin/tickets': typeof AdminTicketsRoute
   '/admin/users': typeof AdminUsersRoute
   '/users/$userId': typeof UsersUserIdRoute
+  '/admin/': typeof AdminIndexRoute
   '/categories/': typeof CategoriesIndexRoute
   '/events/': typeof EventsIndexRoute
   '/how-it-works/': typeof HowItWorksIndexRoute
   '/login/': typeof LoginIndexRoute
+  '/organiser/': typeof OrganiserIndexRoute
   '/register/': typeof RegisterIndexRoute
   '/tickets/': typeof TicketsIndexRoute
   '/users/': typeof UsersIndexRoute
@@ -158,32 +191,37 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/admin'
+    | '/organiser'
+    | '/users'
     | '/admin/events'
-    | '/admin/settings'
+    | '/admin/registeredEvents'
     | '/admin/tickets'
     | '/admin/users'
     | '/users/$userId'
+    | '/admin/'
     | '/categories'
     | '/events'
     | '/how-it-works'
     | '/login'
+    | '/organiser/'
     | '/register'
     | '/tickets'
-    | '/users'
+    | '/users/'
     | '/admin/payments'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/admin'
     | '/admin/events'
-    | '/admin/settings'
+    | '/admin/registeredEvents'
     | '/admin/tickets'
     | '/admin/users'
     | '/users/$userId'
+    | '/admin'
     | '/categories'
     | '/events'
     | '/how-it-works'
     | '/login'
+    | '/organiser'
     | '/register'
     | '/tickets'
     | '/users'
@@ -192,15 +230,19 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/admin'
+    | '/organiser'
+    | '/users'
     | '/admin/events'
-    | '/admin/settings'
+    | '/admin/registeredEvents'
     | '/admin/tickets'
     | '/admin/users'
     | '/users/$userId'
+    | '/admin/'
     | '/categories/'
     | '/events/'
     | '/how-it-works/'
     | '/login/'
+    | '/organiser/'
     | '/register/'
     | '/tickets/'
     | '/users/'
@@ -210,18 +252,32 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRouteRoute: typeof AdminRouteRouteWithChildren
-  UsersUserIdRoute: typeof UsersUserIdRoute
+  OrganiserRouteRoute: typeof OrganiserRouteRouteWithChildren
+  UsersRouteRoute: typeof UsersRouteRouteWithChildren
   CategoriesIndexRoute: typeof CategoriesIndexRoute
   EventsIndexRoute: typeof EventsIndexRoute
   HowItWorksIndexRoute: typeof HowItWorksIndexRoute
   LoginIndexRoute: typeof LoginIndexRoute
   RegisterIndexRoute: typeof RegisterIndexRoute
   TicketsIndexRoute: typeof TicketsIndexRoute
-  UsersIndexRoute: typeof UsersIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/users': {
+      id: '/users'
+      path: '/users'
+      fullPath: '/users'
+      preLoaderRoute: typeof UsersRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/organiser': {
+      id: '/organiser'
+      path: '/organiser'
+      fullPath: '/organiser'
+      preLoaderRoute: typeof OrganiserRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin': {
       id: '/admin'
       path: '/admin'
@@ -238,10 +294,10 @@ declare module '@tanstack/react-router' {
     }
     '/users/': {
       id: '/users/'
-      path: '/users'
-      fullPath: '/users'
+      path: '/'
+      fullPath: '/users/'
       preLoaderRoute: typeof UsersIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof UsersRouteRoute
     }
     '/tickets/': {
       id: '/tickets/'
@@ -256,6 +312,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/register'
       preLoaderRoute: typeof RegisterIndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/organiser/': {
+      id: '/organiser/'
+      path: '/'
+      fullPath: '/organiser/'
+      preLoaderRoute: typeof OrganiserIndexRouteImport
+      parentRoute: typeof OrganiserRouteRoute
     }
     '/login/': {
       id: '/login/'
@@ -285,12 +348,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CategoriesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
     '/users/$userId': {
       id: '/users/$userId'
-      path: '/users/$userId'
+      path: '/$userId'
       fullPath: '/users/$userId'
       preLoaderRoute: typeof UsersUserIdRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof UsersRouteRoute
     }
     '/admin/users': {
       id: '/admin/users'
@@ -306,11 +376,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminTicketsRouteImport
       parentRoute: typeof AdminRouteRoute
     }
-    '/admin/settings': {
-      id: '/admin/settings'
-      path: '/settings'
-      fullPath: '/admin/settings'
-      preLoaderRoute: typeof AdminSettingsRouteImport
+    '/admin/registeredEvents': {
+      id: '/admin/registeredEvents'
+      path: '/registeredEvents'
+      fullPath: '/admin/registeredEvents'
+      preLoaderRoute: typeof AdminRegisteredEventsRouteImport
       parentRoute: typeof AdminRouteRoute
     }
     '/admin/events': {
@@ -332,17 +402,19 @@ declare module '@tanstack/react-router' {
 
 interface AdminRouteRouteChildren {
   AdminEventsRoute: typeof AdminEventsRoute
-  AdminSettingsRoute: typeof AdminSettingsRoute
+  AdminRegisteredEventsRoute: typeof AdminRegisteredEventsRoute
   AdminTicketsRoute: typeof AdminTicketsRoute
   AdminUsersRoute: typeof AdminUsersRoute
+  AdminIndexRoute: typeof AdminIndexRoute
   AdminPaymentsIndexRoute: typeof AdminPaymentsIndexRoute
 }
 
 const AdminRouteRouteChildren: AdminRouteRouteChildren = {
   AdminEventsRoute: AdminEventsRoute,
-  AdminSettingsRoute: AdminSettingsRoute,
+  AdminRegisteredEventsRoute: AdminRegisteredEventsRoute,
   AdminTicketsRoute: AdminTicketsRoute,
   AdminUsersRoute: AdminUsersRoute,
+  AdminIndexRoute: AdminIndexRoute,
   AdminPaymentsIndexRoute: AdminPaymentsIndexRoute,
 }
 
@@ -350,17 +422,43 @@ const AdminRouteRouteWithChildren = AdminRouteRoute._addFileChildren(
   AdminRouteRouteChildren,
 )
 
+interface OrganiserRouteRouteChildren {
+  OrganiserIndexRoute: typeof OrganiserIndexRoute
+}
+
+const OrganiserRouteRouteChildren: OrganiserRouteRouteChildren = {
+  OrganiserIndexRoute: OrganiserIndexRoute,
+}
+
+const OrganiserRouteRouteWithChildren = OrganiserRouteRoute._addFileChildren(
+  OrganiserRouteRouteChildren,
+)
+
+interface UsersRouteRouteChildren {
+  UsersUserIdRoute: typeof UsersUserIdRoute
+  UsersIndexRoute: typeof UsersIndexRoute
+}
+
+const UsersRouteRouteChildren: UsersRouteRouteChildren = {
+  UsersUserIdRoute: UsersUserIdRoute,
+  UsersIndexRoute: UsersIndexRoute,
+}
+
+const UsersRouteRouteWithChildren = UsersRouteRoute._addFileChildren(
+  UsersRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRouteRoute: AdminRouteRouteWithChildren,
-  UsersUserIdRoute: UsersUserIdRoute,
+  OrganiserRouteRoute: OrganiserRouteRouteWithChildren,
+  UsersRouteRoute: UsersRouteRouteWithChildren,
   CategoriesIndexRoute: CategoriesIndexRoute,
   EventsIndexRoute: EventsIndexRoute,
   HowItWorksIndexRoute: HowItWorksIndexRoute,
   LoginIndexRoute: LoginIndexRoute,
   RegisterIndexRoute: RegisterIndexRoute,
   TicketsIndexRoute: TicketsIndexRoute,
-  UsersIndexRoute: UsersIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

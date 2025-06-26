@@ -1,7 +1,8 @@
 import api from './axios'
+import type { PaginatedUsersResponse } from '@/types/types'
 
 export const getUsers = async () => {
-  const response = await api.get('/users')
+  const response = await api.get<PaginatedUsersResponse>('/users')
   return response.data
 }
 export const getUser = async (userId: number) => {
