@@ -4,14 +4,20 @@ import { useTheme } from '@table-library/react-table-library/theme'
 import { getTheme } from '@table-library/react-table-library/baseline'
 import { usePagination } from '@table-library/react-table-library/pagination'
 import { useSort } from '@table-library/react-table-library/sort'
+import { PencilIcon, Trash } from 'lucide-react'
 import type { TUser } from '@/types/types'
-import { useUsers } from '@/hooks/useUsers'
+import { useDeleteUser, useUsers } from '@/hooks/useUsers'
+// import { Item } from '@radix-ui/react-select'
 
 const UsersTable = () => {
   const theme = useTheme(getTheme())
   const [search, setSearch] = useState('')
   const { users, error } = useUsers()
-  console.log(users)
+  const { isPending, removeUser } = useDeleteUser()
+
+  if (isPending) {
+    ;<div className="p-4 text-blue-600">Deleting user...</div>
+  }
 
   // Filter users based on search
   const filteredData = useMemo(
@@ -115,9 +121,14 @@ const UsersTable = () => {
     },
     {
       label: 'Actions',
-      renderCell: () => (
-        <div className="max-w-xs truncate" title="Edit User">
-          edit
+      renderCell: (item: TUser) => (
+        <div className="max-w-xs truncate flex gap-4" title="Edit User">
+          <button onClick={() => removeUser(item.id)}>
+            <Trash className="text-red-600" />
+          </button>
+          <button>
+            <PencilIcon className="text-blue-600" />
+          </button>
         </div>
       ),
     },

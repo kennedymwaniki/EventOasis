@@ -1,5 +1,7 @@
-import { useQuery } from '@tanstack/react-query'
-import { getUser, getUsers } from '@/apis/usersApi'
+// import { ref } from 'process'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { toast } from 'sonner'
+import { deleteUser, getUser, getUsers } from '@/apis/usersApi'
 
 export const useUsers = () => {
   const {
@@ -31,5 +33,30 @@ export const useUserById = (userId: number) => {
     user,
     isLoading,
     error,
+  }
+}
+
+export const useDeleteUser = () => {
+  const queryClient = useQueryClient()
+  const {
+    isPending,
+    error,
+    mutate: removeUser,
+  } = useMutation({
+    mutationFn: deleteUser,
+    onSuccess: () => {
+      toast.success('User deleted successfully', {
+        position: 'top-right',
+      })
+      queryClient.invalidateQueries({ queryKey: ['users'] })
+    },
+    onError: () => {
+      toast.error(`Error deleting user`)
+    },
+  })
+  return {
+    isPending,
+    error,
+    removeUser,
   }
 }

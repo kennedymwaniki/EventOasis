@@ -10,6 +10,6 @@ export const getEvent = async (eventId: number) => {
   return response.data
 }
 export const createEvent = async (data: any) => {
-  const response = await api.post('/events', data)
+  const response = await api.post<Event>('/events', data)
   return response.data
 }

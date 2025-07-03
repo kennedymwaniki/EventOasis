@@ -10,8 +10,8 @@ import {
 
 const AdminSidenav = () => {
   return (
-    <div className="bg-gradient-to-b from-indigo-700 via-indigo-800 to-indigo-900 h-svh flex flex-col">
-      <nav className="flex-1 p-4 space-y-1">
+    <div className="bg-gradient-to-b from-indigo-700 via-indigo-800 to-indigo-900 h-svh flex flex-col gap-4">
+      <nav className="flex-1 p-4 space-y-4">
         <Link
           to="/admin"
           activeProps={{ className: 'bg-indigo-500/30 text-white' }}
@@ -39,14 +39,14 @@ const AdminSidenav = () => {
           <span className="font-medium">User Management</span>
         </Link>
 
-        <Link
+        {/* <Link
           to="/admin/payments"
           activeProps={{ className: 'bg-indigo-500/30 text-white' }}
           className="flex items-center gap-3 px-4 py-3 text-indigo-100 hover:bg-indigo-500/30 hover:text-white rounded-lg transition-all duration-200"
         >
           <CreditCard className="w-5 h-5" />
           <span className="font-medium">Payments</span>
-        </Link>
+        </Link> */}
 
         <Link
           to="/admin/registeredEvents"

@@ -1,7 +1,7 @@
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 // import { EventResponse, type Event } from '@/types/types'
 import type { PaginatedEventsResponse } from '@/types/types'
-import { getEvent, getEvents } from '@/apis/eventsApi'
+import { createEvent, getEvent, getEvents } from '@/apis/eventsApi'
 
 export const useEvents = () => {
   const {
@@ -32,6 +32,29 @@ export const useEventById = (eventId: number) => {
   return {
     event,
     isLoading,
+    error,
+  }
+}
+
+export const useCreateEvents = () => {
+  const queryClient = useQueryClient()
+  const {
+    mutate: createevent,
+    isPending,
+    error,
+  } = useMutation({
+    mutationFn: createEvent,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['events'] })
+      console.log('Event created successfully')
+    },
+    onError: () => {
+      console.error('Error creating event')
+    },
+  })
+  return {
+    createevent,
+    isPending,
     error,
   }
 }
